@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Quote Generator</title>
+  <style>
+    /* Embedded CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #5a5a89;
+    }
+
+    #quote {
+      margin: 20px 0;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    button {
+      background-color: #5a5a89;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Quote Generator</h1>
+    <p id="quote">Click the button to get a random quote!</p>
+    <button id="generate-btn">Generate Quote</button>
+  </div>
+  <script>
+    // Embedded JavaScript
+    const quotes = [
+  "The best way to predict the future is to create it.",
+  "Life is 10% what happens to us and 90% how we react to it.",
+  "The only way to do great work is to love what you do.",
+  "Success is not the key to happiness. Happiness is the key to success.",
+  "It does not matter how slowly you go as long as you do not stop.",
+  "Believe you can and you're halfway there.",
+  "The secret of getting ahead is getting started.",
+  "Your time is limited, don't waste it living someone else's life.",
+  "If you can dream it, you can achieve it.",
+  "Do what you can with all you have, wherever you are.",
+  "Act as if what you do makes a difference. It does.",
+  "Success is not in what you have, but who you are.",
+  "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+  "Keep your face always toward the sunshine—and shadows will fall behind you.",
+  "Perfection is not attainable, but if we chase perfection we can catch excellence.",
+  "We may encounter many defeats but we must not be defeated.",
+  "Do not wait to strike till the iron is hot; but make it hot by striking.",
+  "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.",
+  "It always seems impossible until it's done.",
+  "Start where you are. Use what you have. Do what you can.",
+  "Life is either a daring adventure or nothing at all.",
+  "Success is walking from failure to failure with no loss of enthusiasm.",
+  "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+  "The future belongs to those who believe in the beauty of their dreams.",
+  "Don't watch the clock; do what it does. Keep going.",
+  "Happiness is not something ready made. It comes from your own actions.",
+  "The only limit to our realization of tomorrow will be our doubts of today.",
+  "If you want to lift yourself up, lift up someone else.",
+  "You miss 100% of the shots you don't take.",
+  "It does not matter how slowly you go as long as you do not stop.",
+  "The only way to do great work is to love what you do.",
+  "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+  "Life is what happens when you're busy making other plans.",
+  "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.",
+  "Keep smiling, because life is a beautiful thing and there's so much to smile about.",
+  "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+  "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+  "In the middle of every difficulty lies opportunity.",
+  "The only thing standing between you and your goal is the story you keep telling yourself as to why you can't achieve it.",
+  "I find that the harder I work, the more luck I seem to have.",
+  "Don't be afraid to give up the good to go for the great.",
+  "Life is 10% what happens to us and 90% how we react to it.",
+  "You can't cross the sea merely by standing and staring at the water.",
+  "Whether you think you can or you think you can't, you're right.",
+  "The purpose of our lives is to be happy.",
+  "To live is the rarest thing in the world. Most people exist, that is all.",
+  "Go confidently in the direction of your dreams. Live the life you have imagined.",
+  "Life is really simple, but we insist on making it complicated.",
+  "Do not take life too seriously. You will never get out of it alive.",
+  "Success usually comes to those who are too busy to be looking for it.",
+  "If you are not willing to risk the usual, you will have to settle for the ordinary.",
+  "The difference between ordinary and extraordinary is that little extra.",
+  "The only place where success comes before work is in the dictionary.",
+  "The road to success and the road to failure are almost exactly the same.",
+  "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
+  "Don't let yesterday take up too much of today.",
+  "You learn more from failure than from success. Don’t let it stop you. Failure builds character.",
+  "Experience is a hard teacher because she gives the test first, the lesson afterwards.",
+  "To know how much there is to know is the beginning of learning to live.",
+  "Goal setting is the secret to a compelling future.",
+  "Some people dream of success, while other people get up every morning and make it happen.",
+  "Don’t let the fear of losing be greater than the excitement of winning.",
+  "The question isn’t who is going to let me; it’s who is going to stop me.",
+  "You can waste your lives drawing lines. Or you can live your life crossing them.",
+  "Dream big and dare to fail.",
+  "Our greatest glory is not in never falling, but in rising every time we fall.",
+  "You have to learn the rules of the game. And then you have to play better than anyone else.",
+  "Don't be afraid to give up the good to go for the great.",
+  "Do one thing every day that scares you.",
+  "If you genuinely want something, don't wait for it – teach yourself to be impatient.",
+  "If you are going through hell, keep going.",
+  "Life is 10% what happens to you and 90% how you react to it.",
+  "The best way to predict the future is to create it.",
+  "The only limit to our realization of tomorrow will be our doubts of today.",
+  "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+  "The man who has confidence in himself gains the confidence of others.",
+  "The harder you work for something, the greater you'll feel when you achieve it.",
+  "Dream it. Wish it. Do it.",
+  "Sometimes we're tested not to show our weaknesses, but to discover our strengths.",
+  "Don’t wait. The time will never be just right.",
+  "I never dreamed about success. I worked for it.",
+  "Act as if what you do makes a difference. It does.",
+  "Success is not how high you have climbed, but how you make a positive difference to the world.",
+  "What you do today can improve all your tomorrows.",
+  "The only limit to our realization of tomorrow is our doubts of today.",
+  "Do what you can, with what you have, where you are.",
+  "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+  "Keep going. Everything you need will come to you at the perfect time.",
+  "It’s not about being the best. It’s about being better than you were yesterday.",
+  "The best view comes after the hardest climb.",
+  "Don’t stop until you’re proud.",
+  "Your life does not get better by chance, it gets better by change.",
+  "Doubt kills more dreams than failure ever will.",
+  "The man who moves a mountain begins by carrying away small stones.",
+  "You don’t need to be perfect to inspire others. Let people get inspired by how you deal with your imperfections.",
+  "A year from now, you’ll wish you had started today.",
+  "Work hard in silence. Let success be your noise.",
+  "If you cannot do great things, do small things in a great way.",
+  "Hustle until you no longer need to introduce yourself.",
+  "Opportunities don’t happen. You create them.",
+  "Success is what happens after you have survived all your mistakes.",
+  "Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+  "Someday is not a day of the week.",
+  "You are what you do, not what you say you’ll do.",
+  "Do it with passion or not at all.",
+  "Success is liking yourself, liking what you do, and liking how you do it.",
+  "If it doesn’t challenge you, it won’t change you.",
+  "The harder the battle, the sweeter the victory.",
+  "Be stronger than your excuses.",
+  "You can’t have a million-dollar dream with a minimum-wage work ethic.",
+  "Discipline is the bridge between goals and accomplishment.",
+  "Success is a state of mind. If you want success, start thinking of yourself as a success.",
+  "Fall seven times, stand up eight.",
+  "What consumes your mind, controls your life.",
+  "The only way to achieve the impossible is to believe it is possible.",
+  "Don’t dream your life, live your dream.",
+  "A goal without a plan is just a wish.",
+  "You didn’t come this far to only come this far.",
+  "Be fearless in the pursuit of what sets your soul on fire.",
+  "You don’t find willpower, you create it.",
+  "The best way to gain self-confidence is to do what you are afraid to do.",
+  "Failure is the opportunity to begin again more intelligently.",
+  "Don’t be afraid to fail. Be afraid not to try.",
+  "Be so good they can’t ignore you.",
+  "Big journeys begin with small steps.",
+  "Every accomplishment starts with the decision to try.",
+  "Don’t let small minds convince you that your dreams are too big.",
+  "Success usually comes to those who are too busy to be looking for it.",
+  "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment."
+];
+
+
+    document.getElementById("generate-btn").addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote").textContent = quotes[randomIndex];
+    });
+  </script>
+</body>
+</html>
